@@ -24,7 +24,11 @@ objdump:	$(OBJ)
 	$(MAKE) -C $(OBJDUMP_DIR)
 
 clean:
+	$(MAKE) -C $(NM_DIR) clean
+	$(MAKE) -C $(OBJDUMP_DIR) clean
+
+fclean:
 	$(MAKE) -C $(NM_DIR) fclean
 	$(MAKE) -C $(OBJDUMP_DIR) fclean
 
-.PHONY:		make nm objdump clean all
+.PHONY:		make nm objdump clean fclean all
