@@ -1,13 +1,13 @@
 /*
 ** EPITECH PROJECT, 2020
-** nm
+** PSU_nmobjdump_2019
 ** File description:
-** nm_engine
+** objdump_engine
 */
 
-#include "../inc/my_nm.h"
+#include "../inc/my_objdump.h"
 
-void nm_engine(char *filename)
+void objdump_engine(char *filename)
 {
     Elf64_Ehdr elf;
     FILE* fd = fopen(filename, "r");

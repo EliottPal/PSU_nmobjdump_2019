@@ -5,25 +5,21 @@
 ** main
 */
 
-#include <stdio.h>
-#include <sys/mman.h>
-#include <stdbool.h>
-#include <string.h>
-#include <elf.h>
+
 #include "../inc/my_nm.h"
 
 bool check_format(char *filename)
 {
     Elf64_Ehdr elf;
-    FILE* file = fopen(filename, "r");
+    FILE* fd = fopen(filename, "r");
 
-    if (file) {
-        fread(&elf, 1, sizeof(elf), file);
+    if (fd) {
+        fread(&elf, 1, sizeof(elf), fd);
         if (memcmp(elf.e_ident, ELFMAG, SELFMAG) == 0) {
-            fclose(file);
+            fclose(fd);
             return (true);
         }
-        fclose(file);
+        fclose(fd);
         return (false);
     }
     return (false);

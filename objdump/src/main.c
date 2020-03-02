@@ -5,13 +5,35 @@
 ** main
 */
 
-#include "stdio.h"
+#include "../inc/my_objdump.h"
+
+bool check_format(char *filename)
+{
+    Elf64_Ehdr elf;
+    FILE* fd = fopen(filename, "r");
+
+    if (fd) {
+        fread(&elf, 1, sizeof(elf), fd);
+        if (memcmp(elf.e_ident, ELFMAG, SELFMAG) == 0) {
+            fclose(fd);
+            return (true);
+        }
+        fclose(fd);
+        return (false);
+    }
+    return (false);
+}
 
 int main(int ac, char **av)
 {
-    (void)ac;
-    (void)av;
-
-    printf("Objdump\n");
+    if (ac < 2 || ac > 2) {
+        fprintf(stderr, "nm: No such file\n");
+        return (84);
+    }
+    if (check_format(av[1]) == false) {
+        fprintf(stderr, "nm: %s: File format not recognized\n", av[1]);
+        return (84);
+    }
+    objdump_engine(av[1]);
     return (0);
 }

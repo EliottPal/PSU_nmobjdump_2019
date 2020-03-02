@@ -31,4 +31,6 @@ fclean:
 	$(MAKE) -C $(NM_DIR) fclean
 	$(MAKE) -C $(OBJDUMP_DIR) fclean
 
-.PHONY:		make nm objdump clean fclean all
+re: 	fclean all
+
+.PHONY:		make nm objdump clean fclean all re

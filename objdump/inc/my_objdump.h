@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2020
-** nm
+** PSU_nmobjdump_2019
 ** File description:
-** my_nm
+** my_objdump
 */
 
-#ifndef MY_NM_H_
-#define MY_NM_H_
+#ifndef MY_OBJDUMP_H_
+#define MY_OBJDUMP_H_
 
 // Includes
 #include <stdio.h>
@@ -16,7 +16,6 @@
 #include <elf.h>
 
 // Protos
-void nm_engine(char *filename);
+void objdump_engine(char *filename);
 
-
-#endif /* !MY_NM_H_ */
+#endif /* !MY_OBJDUMP_H_ */
