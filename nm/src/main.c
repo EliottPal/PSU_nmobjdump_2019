@@ -35,6 +35,9 @@ int main(int ac, char **av)
         fprintf(stderr, "nm: %s: File format not recognized\n", av[1]);
         return (84);
     }
-    nm_engine(av[1]);
+    if (av[1])
+        nm_engine(av[1]);
+    else
+        nm_engine("a.out");
     return (0);
 }

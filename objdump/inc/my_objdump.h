@@ -13,9 +13,23 @@
 #include <sys/mman.h>
 #include <stdbool.h>
 #include <string.h>
+#include <fcntl.h>
+#include <sys/stat.h>
 #include <elf.h>
+#include "../../flags.h"
 
-// Protos
-void objdump_engine(char *filename);
+//// 64
+int objdump_engine_64(char *filename);
+
+char *get_archi_64(Elf64_Half elf);
+int get_flags_int_64(Elf64_Half elf);
+char *get_flags_str_64(Elf64_Half elf);
+
+//// 32
+int objdump_engine_32(char *filename);
+
+char *get_archi_32(Elf32_Half elf);
+int get_flags_int_32(Elf32_Half elf);
+char *get_flags_str_32(Elf32_Half elf);
 
 #endif /* !MY_OBJDUMP_H_ */

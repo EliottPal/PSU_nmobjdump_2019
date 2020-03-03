@@ -15,5 +15,4 @@ void nm_engine(char *filename)
     fread(&elf, 1, sizeof(elf), fd);
 
     fclose(fd);
-
 }

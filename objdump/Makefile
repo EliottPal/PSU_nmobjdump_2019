@@ -5,9 +5,11 @@
 ## My Makefile
 ##
 
-SRC	=	src/main.c				\
-		src/objdump_engine.c 	\
-
+SRC	=	src/main.c						\
+		src/32/engine_32.c 				\
+		src/32/header_values_32.c	 	\
+		src/64/engine_64.c 				\
+		src/64/header_values_64.c	 	\
 
 OBJ	=	$(SRC:.c=.o)
 
