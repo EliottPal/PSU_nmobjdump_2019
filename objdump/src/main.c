@@ -26,7 +26,7 @@ static bool check_format(char *filename)
 }
 
 // Manage errors
-static void manage_errors(char* file)
+static void manage_errors(char *file)
 {
     struct stat buf;
 
@@ -35,7 +35,7 @@ static void manage_errors(char* file)
         fprintf(stderr, "my_objdump: Warning: '%s' is a directory\n", file);
         exit(84);
     }
-    if (access(file, F_OK ) == -1 ) {
+    if (access(file, F_OK) == -1) {
         fprintf(stderr, "my_objdump: '%s': No such file\n", file);
         exit(84);
     }
@@ -55,24 +55,24 @@ static void wich_exec(char *filename)
     if (elf.e_ident[4] == ELFCLASS32) {
         fclose(fd);
         objdump_engine_32(filename);
-        return ;
+        return;
     }
     else {
         fclose(fd);
         manage_errors(filename);
         objdump_engine_64(filename);
     }
-    return ;
+    return;
 }
 
 // Execute objdump
 static void exec_with_args(int ac, char **av)
 {
     if (ac > 2)
-        for (size_t i = 1; av[i]; i++) {
-            manage_errors(av[i]);
-            wich_exec(av[i]);
-        }
+    for (size_t i = 1; av[i]; i++) {
+        manage_errors(av[i]);
+        wich_exec(av[i]);
+    }
     else if (ac == 2) {
         manage_errors(av[1]);
         wich_exec(av[1]);

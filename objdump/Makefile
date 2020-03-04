@@ -6,12 +6,12 @@
 ##
 
 SRC	=	src/main.c						\
-		src/32/engine_32.c 				\
-		src/32/header_values_32.c	 	\
-		src/32/print_sections_32.c 		\
-		src/64/engine_64.c 				\
-		src/64/header_values_64.c	 	\
-		src/64/print_sections_64.c 		\
+		src/obj_32/engine_32.c 				\
+		src/obj_32/header_values_32.c	 	\
+		src/obj_32/print_sections_32.c 		\
+		src/obj_64/engine_64.c 				\
+		src/obj_64/header_values_64.c	 	\
+		src/obj_64/print_sections_64.c 		\
 
 OBJ	=	$(SRC:.c=.o)
 

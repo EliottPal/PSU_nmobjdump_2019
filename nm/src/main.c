@@ -27,7 +27,7 @@ static bool check_format(char *filename)
 }
 
 // Manage errors
-static void manage_errors(char* file)
+static void manage_errors(char *file)
 {
     struct stat buf;
 
@@ -56,24 +56,24 @@ static void wich_exec(char *filename)
     if (elf.e_ident[4] == ELFCLASS32) {
         fclose(fd);
         nm_engine_32(filename);
-        return ;
+        return;
     }
     else {
         fclose(fd);
         manage_errors(filename);
         nm_engine_64(filename);
     }
-    return ;
+    return;
 }
 
 // Execute objdump
 static void exec_with_args(int ac, char **av)
 {
     if (ac > 2)
-        for (size_t i = 1; av[i]; i++) {
-            manage_errors(av[i]);
-            wich_exec(av[i]);
-        }
+    for (size_t i = 1; av[i]; i++) {
+        manage_errors(av[i]);
+        wich_exec(av[i]);
+    }
     else if (ac == 2) {
         manage_errors(av[1]);
         wich_exec(av[1]);

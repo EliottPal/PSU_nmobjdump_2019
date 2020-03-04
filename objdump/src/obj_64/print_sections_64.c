@@ -16,16 +16,14 @@ static void print_spaces(size_t i, bool is_end)
             i++;
         }
         printf("\n");
-        return ;
+        return;
     }
-    else {
-        printf(" ");
-        while (i % 16 != 0) {
-            printf("  ");
-            i++;
-            if (i % 4 == 0)
-                printf(" ");
-        }
+    printf(" ");
+    while (i % 16 != 0) {
+        printf("  ");
+        i++;
+        if (i % 4 == 0)
+            printf(" ");
     }
 }
 
@@ -40,7 +38,7 @@ static void print_hexa_content(Elf64_Shdr section, char *buf, size_t i)
         i++;
         if (i % 16 == 0) {
             printf("  ");
-            break ;
+            break;
         }
         if (i % 4 == 0)
             printf(" ");

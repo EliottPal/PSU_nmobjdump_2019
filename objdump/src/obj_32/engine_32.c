@@ -47,7 +47,7 @@ static void loop_sections(char *filename, size_t file_size)
 // Engine for objdump (32 edition)
 int objdump_engine_32(char *filename)
 {
-    struct stat s;
+struct stat s;
 
     if (stat(filename, &s) != 0) {
         perror("stat");

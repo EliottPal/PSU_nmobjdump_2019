@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2020
+** PSU_nmobjdump_2019
+** File description:
+** flags
+*/
+
 #ifndef __BFD_H_SEEN__
 #define __BFD_H_SEEN__
 
