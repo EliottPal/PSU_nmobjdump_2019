@@ -8,7 +8,7 @@
 #include "../inc/my_objdump.h"
 
 // Check if the file is elf
-bool check_format(char *filename)
+static bool check_format(char *filename)
 {
     Elf64_Ehdr elf;
     FILE* fd = fopen(filename, "r");
@@ -25,8 +25,28 @@ bool check_format(char *filename)
     return (false);
 }
 
+// Manage errors
+static void manage_errors(char* file)
+{
+    struct stat buf;
+
+    stat(file, &buf);
+    if (S_ISDIR(buf.st_mode) == true) {
+        fprintf(stderr, "my_objdump: Warning: '%s' is a directory\n", file);
+        exit(84);
+    }
+    if (access(file, F_OK ) == -1 ) {
+        fprintf(stderr, "my_objdump: '%s': No such file\n", file);
+        exit(84);
+    }
+    if (check_format(file) == false) {
+        fprintf(stderr, "my_objdump: %s: File format not recognized\n", file);
+        exit(84);
+    }
+}
+
 // Check wich exec is needed (32/64)
-bool is_32(char *filename)
+static void wich_exec(char *filename)
 {
     Elf64_Ehdr elf;
     FILE* fd = fopen(filename, "r");
@@ -34,40 +54,38 @@ bool is_32(char *filename)
     fread(&elf, 1, sizeof(elf), fd);
     if (elf.e_ident[4] == ELFCLASS32) {
         fclose(fd);
-        return (true);
-    }
-    fclose(fd);
-    return (false);
-}
-
-// Exec 32 or 64 objdump
-void wich_exec(char *filename)
-{
-    if (is_32(filename) == true)
         objdump_engine_32(filename);
-    else
+        return ;
+    }
+    else {
+        fclose(fd);
+        manage_errors(filename);
         objdump_engine_64(filename);
+    }
+    return ;
 }
 
 // Execute objdump
-void exec_with_args(char **av)
+static void exec_with_args(int ac, char **av)
 {
-    if (av[2])
-        for (size_t i = 1; av[i]; i++)
+    if (ac > 2)
+        for (size_t i = 1; av[i]; i++) {
+            manage_errors(av[i]);
             wich_exec(av[i]);
-    else if (av[1])
+        }
+    else if (ac == 2) {
+        manage_errors(av[1]);
         wich_exec(av[1]);
-    else
+    }
+    else {
+        manage_errors("a.out");
         wich_exec("a.out");
+    }
 }
 
 int main(int ac, char **av)
 {
     (void)ac;
-    if (av[1] && check_format(av[1]) == false) {
-        fprintf(stderr, "objdump: %s: File format not recognized\n", av[1]);
-        return (84);
-    }
-    exec_with_args(av);
+    exec_with_args(ac, av);
     return (0);
 }

@@ -8,7 +8,8 @@
 
 #include "../inc/my_nm.h"
 
-bool check_format(char *filename)
+// Check if the file is elf
+static bool check_format(char *filename)
 {
     Elf64_Ehdr elf;
     FILE* fd = fopen(filename, "r");
@@ -25,19 +26,67 @@ bool check_format(char *filename)
     return (false);
 }
 
+// Manage errors
+static void manage_errors(char* file)
+{
+    struct stat buf;
+
+    stat(file, &buf);
+    if (S_ISDIR(buf.st_mode) == true) {
+        fprintf(stderr, "my_objdump: Warning: '%s' is a directory\n", file);
+        exit(84);
+    }
+    if (access(file, F_OK ) == -1 ) {
+        fprintf(stderr, "my_objdump: '%s': No such file\n", file);
+        exit(84);
+    }
+    if (check_format(file) == false) {
+        fprintf(stderr, "my_objdump: %s: File format not recognized\n", file);
+        exit(84);
+    }
+}
+
+// Check wich exec is needed (32/64)
+static void wich_exec(char *filename)
+{
+    Elf64_Ehdr elf;
+    FILE* fd = fopen(filename, "r");
+
+    fread(&elf, 1, sizeof(elf), fd);
+    if (elf.e_ident[4] == ELFCLASS32) {
+        fclose(fd);
+        nm_engine_32(filename);
+        return ;
+    }
+    else {
+        fclose(fd);
+        manage_errors(filename);
+        nm_engine_64(filename);
+    }
+    return ;
+}
+
+// Execute objdump
+static void exec_with_args(int ac, char **av)
+{
+    if (ac > 2)
+        for (size_t i = 1; av[i]; i++) {
+            manage_errors(av[i]);
+            wich_exec(av[i]);
+        }
+    else if (ac == 2) {
+        manage_errors(av[1]);
+        wich_exec(av[1]);
+    }
+    else {
+        manage_errors("a.out");
+        wich_exec("a.out");
+    }
+}
+
 int main(int ac, char **av)
 {
-    if (ac < 2 || ac > 2) {
-        fprintf(stderr, "nm: No such file\n");
-        return (84);
-    }
-    if (check_format(av[1]) == false) {
-        fprintf(stderr, "nm: %s: File format not recognized\n", av[1]);
-        return (84);
-    }
-    if (av[1])
-        nm_engine(av[1]);
-    else
-        nm_engine("a.out");
+    (void)ac;
+    exec_with_args(ac, av);
     return (0);
 }

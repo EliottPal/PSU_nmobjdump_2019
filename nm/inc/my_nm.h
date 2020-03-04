@@ -13,10 +13,18 @@
 #include <sys/mman.h>
 #include <stdbool.h>
 #include <string.h>
+#include <fcntl.h>
+#include <sys/stat.h>
 #include <elf.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include "../../flags.h"
 
-// Protos
-void nm_engine(char *filename);
 
+//// 64
+void nm_engine_64(char *filename);
+
+//// 32
+void nm_engine_32(char *filename);
 
 #endif /* !MY_NM_H_ */

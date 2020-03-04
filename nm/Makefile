@@ -5,8 +5,9 @@
 ## My Makefile
 ##
 
-SRC	=	src/main.c			\
-		src/nm_engine.c 	\
+SRC	=	src/main.c				\
+		src/64/nm_engine_64.c 	\
+		src/32/nm_engine_32.c 	\
 
 
 OBJ	=	$(SRC:.c=.o)

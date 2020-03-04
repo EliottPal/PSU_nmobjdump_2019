@@ -16,10 +16,13 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <elf.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include "../../flags.h"
 
 //// 64
 int objdump_engine_64(char *filename);
+bool check_format_64(char *filename);
 
 char *get_archi_64(Elf64_Half elf);
 int get_flags_int_64(Elf64_Half elf);
