@@ -7,6 +7,7 @@
 
 #include "../../inc/my_objdump.h"
 
+// Print header (-f)
 static void print_header(char *filename)
 {
     Elf64_Ehdr elf;
@@ -18,13 +19,6 @@ static void print_header(char *filename)
         get_archi_64(elf.e_machine), get_flags_int_64(elf.e_type));
     printf("%s\n", get_flags_str_64(elf.e_type));
     printf("start address 0x%016lx\n\n", elf.e_entry);
-}
-
-// Print the content of sections
-static void print_section(Elf64_Shdr section)
-{
-    size_t offset = section.sh_offset;
-    (void)offset;
 }
 
 // Loop through all sections
@@ -40,13 +34,13 @@ static void loop_sections(char *filename, size_t file_size)
 
     for (int i = 1; i < elf->e_shnum; i++) {
         section_name = sections_array + sections[i].sh_name;
-        // if (strcmp(".bss", section_name) == 0 ||
-        //     strcmp(".symtab", section_name) == 0 ||
-        //     strcmp(".strtab", section_name) == 0 ||
-        //     strcmp(".shstrtab", section_name) == 0)
-        //     continue;
+        if (strcmp(".bss", section_name) == 0 ||
+            strcmp(".symtab", section_name) == 0 ||
+            strcmp(".strtab", section_name) == 0 ||
+            strcmp(".shstrtab", section_name) == 0)
+            continue;
         printf("Contents of section %s:\n", section_name);
-        print_section(sections[i]);
+        print_section_64(sections[i], buf);
     }
 }
 

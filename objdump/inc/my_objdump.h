@@ -25,11 +25,15 @@ char *get_archi_64(Elf64_Half elf);
 int get_flags_int_64(Elf64_Half elf);
 char *get_flags_str_64(Elf64_Half elf);
 
+void print_section_64(Elf64_Shdr section, char *buff);
+
 //// 32
 int objdump_engine_32(char *filename);
 
 char *get_archi_32(Elf32_Half elf);
 int get_flags_int_32(Elf32_Half elf);
 char *get_flags_str_32(Elf32_Half elf);
+
+void print_section_32(Elf32_Shdr section, char *buff);
 
 #endif /* !MY_OBJDUMP_H_ */
