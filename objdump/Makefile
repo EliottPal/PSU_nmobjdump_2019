@@ -17,7 +17,7 @@ OBJ	=	$(SRC:.c=.o)
 
 CFLAGS	+=	-Wall -Wextra -Werror -g3
 
-NAME	=	my_objdump
+NAME	=	../my_objdump
 
 all:		build
 

@@ -10,7 +10,7 @@
 char *get_archi_32(Elf32_Half elf)
 {
     if (elf == EM_386)
-        return("i386");
+        return ("i386");
     return ("i386:x86-64");
 }
 

@@ -11,7 +11,7 @@
 char *get_archi_64(Elf64_Half elf)
 {
     if (elf == EM_386)
-        return("i386");
+        return ("i386");
     return ("i386:x86-64");
 }
 

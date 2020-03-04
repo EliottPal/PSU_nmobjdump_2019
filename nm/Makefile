@@ -13,7 +13,7 @@ OBJ	=	$(SRC:.c=.o)
 
 CFLAGS	+=	-Wall -Wextra -Werror -g3
 
-NAME	=	my_nm
+NAME	=	../my_nm
 
 all:		build
 
