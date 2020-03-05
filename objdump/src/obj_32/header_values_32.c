@@ -20,8 +20,12 @@ int get_flags_int_32(Elf32_Half elf)
         return (HAS_SYMS | HAS_RELOC);
     else if (elf == ET_EXEC)
         return (D_PAGED | HAS_SYMS | EXEC_P);
-    else if (elf == ET_DYN)
-        return (D_PAGED | DYNAMIC | HAS_SYMS);
+    else {
+        if (elf == ET_DYN)
+            return (D_PAGED | DYNAMIC | HAS_SYMS);
+        else
+            return (0);
+    }
     return (0);
 }
 
@@ -31,7 +35,11 @@ char *get_flags_str_32(Elf32_Half elf)
         return ("HAS_RELOC, HAS_SYMS");
     else if (elf == ET_EXEC)
         return ("EXEC_P, HAS_SYMS, D_PAGED");
-    else if (elf == ET_DYN)
-        return ("HAS_SYMS | DYNAMIC | D_PAGED");
+    else {
+        if (elf == ET_DYN)
+            return ("HAS_SYMS | DYNAMIC | D_PAGED");
+        else
+            return ("");
+    }
     return (0);
 }
