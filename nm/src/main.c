@@ -33,15 +33,15 @@ static void manage_errors(char *file)
 
     stat(file, &buf);
     if (S_ISDIR(buf.st_mode) == true) {
-        fprintf(stderr, "my_objdump: Warning: '%s' is a directory\n", file);
+        fprintf(stderr, "my_nm: Warning: '%s' is a directory\n", file);
         exit(84);
     }
     if (access(file, F_OK ) == -1 ) {
-        fprintf(stderr, "my_objdump: '%s': No such file\n", file);
+        fprintf(stderr, "my_nm: '%s': No such file\n", file);
         exit(84);
     }
     if (check_format(file) == false) {
-        fprintf(stderr, "my_objdump: %s: File format not recognized\n", file);
+        fprintf(stderr, "my_nm: %s: file format not recognized\n", file);
         exit(84);
     }
 }
