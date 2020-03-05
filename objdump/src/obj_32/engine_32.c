@@ -14,7 +14,7 @@ static void print_header(char *filename)
     FILE* fd = fopen(filename, "r");
 
     fread(&elf, 1, sizeof(elf), fd);
-    printf("%s:\tfile format elf32-x86-32\n", filename);
+    printf("%s:\tfile format elf32-i386\n", filename);
     printf("architecture: %s, flags 0x%08x\n",
         get_archi_32(elf.e_machine), get_flags_int_32(elf.e_type));
     printf("%s\n", get_flags_str_32(elf.e_type));

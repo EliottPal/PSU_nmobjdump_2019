@@ -40,7 +40,7 @@ static void manage_errors(char *file)
         exit(84);
     }
     if (check_format(file) == false) {
-        fprintf(stderr, "my_objdump: %s: File format not recognized\n", file);
+        fprintf(stderr, "my_objdump: %s: file format not recognized\n", file);
         exit(84);
     }
 }
