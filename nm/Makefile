@@ -7,7 +7,9 @@
 
 SRC	=	src/main.c					\
 		src/nm_64/nm_engine_64.c 	\
+		src/nm_64/get_type_64.c		\
 		src/nm_32/nm_engine_32.c 	\
+		src/nm_32/get_type_32.c		\
 
 
 OBJ	=	$(SRC:.c=.o)

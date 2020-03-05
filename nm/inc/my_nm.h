@@ -20,11 +20,12 @@
 #include <unistd.h>
 #include "../../flags.h"
 
-
 //// 64
-void nm_engine_64(char *filename);
+int nm_engine_64(char *filename);
+char get_type_64(Elf64_Sym *symbol, Elf64_Shdr *sections);
 
 //// 32
-void nm_engine_32(char *filename);
+int nm_engine_32(char *filename);
+char get_type_32(Elf32_Sym *symbol, Elf32_Shdr *sections);
 
 #endif /* !MY_NM_H_ */

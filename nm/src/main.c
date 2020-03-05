@@ -36,7 +36,7 @@ static void manage_errors(char *file)
         fprintf(stderr, "my_nm: Warning: '%s' is a directory\n", file);
         exit(84);
     }
-    if (access(file, F_OK ) == -1 ) {
+    if (access(file, F_OK) == -1) {
         fprintf(stderr, "my_nm: '%s': No such file\n", file);
         exit(84);
     }
