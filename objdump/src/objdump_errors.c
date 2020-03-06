@@ -60,7 +60,7 @@ void manage_errors(char *file)
         exit(84);
     }
     if (is_truncated(file, st) == true) {
-        fprintf(stderr, "my_objdump: %s: File truncated\n", file);
+        fprintf(stderr, "my_objdump: %s: file truncated\n", file);
         exit(84);
     }
 }
