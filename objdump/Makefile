@@ -5,7 +5,8 @@
 ## My Makefile
 ##
 
-SRC	=	src/main.c						\
+SRC	=	src/main.c							\
+		src/objdump_errors.c 				\
 		src/obj_32/engine_32.c 				\
 		src/obj_32/header_values_32.c	 	\
 		src/obj_32/print_sections_32.c 		\

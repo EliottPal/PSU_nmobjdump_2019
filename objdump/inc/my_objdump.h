@@ -39,4 +39,7 @@ char *get_flags_str_32(Elf32_Half elf);
 
 void print_section_32(Elf32_Shdr section, char *buff);
 
+//// Errors
+void manage_errors(char *file);
+
 #endif /* !MY_OBJDUMP_H_ */

@@ -28,4 +28,7 @@ char get_type_64(Elf64_Sym *symbol, Elf64_Shdr *sections);
 int nm_engine_32(char *filename);
 char get_type_32(Elf32_Sym *symbol, Elf32_Shdr *sections);
 
+//// Errors
+void manage_errors(char *file);
+
 #endif /* !MY_NM_H_ */

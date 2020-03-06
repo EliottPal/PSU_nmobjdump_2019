@@ -8,44 +8,6 @@
 
 #include "../inc/my_nm.h"
 
-// Check if the file is elf
-static bool check_format(char *filename)
-{
-    Elf64_Ehdr elf;
-    FILE* fd = fopen(filename, "r");
-
-    if (fd) {
-        fread(&elf, 1, sizeof(elf), fd);
-        if (memcmp(elf.e_ident, ELFMAG, SELFMAG) == 0) {
-            fclose(fd);
-            return (true);
-        }
-        fclose(fd);
-        return (false);
-    }
-    return (false);
-}
-
-// Manage errors
-static void manage_errors(char *file)
-{
-    struct stat buf;
-
-    stat(file, &buf);
-    if (S_ISDIR(buf.st_mode) == true) {
-        fprintf(stderr, "my_nm: Warning: '%s' is a directory\n", file);
-        exit(84);
-    }
-    if (access(file, F_OK) == -1) {
-        fprintf(stderr, "my_nm: '%s': No such file\n", file);
-        exit(84);
-    }
-    if (check_format(file) == false) {
-        fprintf(stderr, "my_nm: %s: file format not recognized\n", file);
-        exit(84);
-    }
-}
-
 // Check wich exec is needed (32/64)
 static void wich_exec(char *filename)
 {
