@@ -16,10 +16,11 @@ static void print_all(Elf64_Shdr *sections, size_t i, void *buf)
 
     str = (char *) sections[sections[i].sh_link].sh_offset;
     symbol = (Elf64_Sym *)(buf + sections[i].sh_offset);
+
     for (size_t j = 0; j < sections[i].sh_size / sections[i].sh_entsize; j++) {
         to_print = (char *) (uintptr_t)buf + (uintptr_t)str + symbol->st_name;
         if (strcmp("", to_print) != 0 && symbol->st_info != STT_FILE) {
-            if (symbol->st_value == 0)
+            if (symbol->st_value == 0 && symbol->st_shndx == SHN_UNDEF)
                 printf("                 ");
             else
                 printf("%016lx ", symbol->st_value);
@@ -38,9 +39,11 @@ static void loop_sections(char *filename, size_t file_size)
     Elf64_Shdr *sections = (Elf64_Shdr *)(buf + elf->e_shoff);
 
     for (size_t i = 0; i < elf->e_shnum; i++)
-        if (sections[i].sh_type == SHT_SYMTAB) {
+        if (sections[i].sh_type != SHT_SYMTAB) {
+            fprintf(stderr, "my_nm: %s: no symbols\n", filename);
+            exit (0);
+        } else
             print_all(sections, i, buf);
-        }
 }
 
 // Engine for Nm (64 edition)

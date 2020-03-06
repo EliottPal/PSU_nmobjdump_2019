@@ -13,6 +13,7 @@ SRC	=	src/main.c							\
 		src/obj_64/engine_64.c 				\
 		src/obj_64/header_values_64.c	 	\
 		src/obj_64/print_sections_64.c 		\
+		# ../tests/objdump_tests.c 			\
 
 OBJ	=	$(SRC:.c=.o)
 
@@ -32,7 +33,13 @@ fclean:		clean
 		rm -f *~
 		rm -f $(NAME)
 		rm -f vgcore.*
+		rm -f ../tests/*.gcno
 
 re:		fclean all
+
+# tests_run:    $(OBJ)
+# 	gcc -o unit_tests $(OBJ) -lcriterion --coverage
+# 	./unit_tests
+# 	@gcovr
 
 .PHONY:		make clean fclean re
