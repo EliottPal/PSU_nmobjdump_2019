@@ -39,10 +39,7 @@ static void loop_sections(char *filename, size_t file_size)
     Elf64_Shdr *sections = (Elf64_Shdr *)(buf + elf->e_shoff);
 
     for (size_t i = 0; i < elf->e_shnum; i++)
-        if (sections[i].sh_type != SHT_SYMTAB) {
-            fprintf(stderr, "my_nm: %s: no symbols\n", filename);
-            exit (0);
-        } else
+        if (sections[i].sh_type == SHT_SYMTAB)
             print_all(sections, i, buf);
 }
 
