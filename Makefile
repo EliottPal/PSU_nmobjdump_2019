@@ -33,8 +33,8 @@ fclean:
 
 re: 	fclean all
 
-# tests_run:
-# 	$(MAKE) -C $(NM_DIR) tests_run
-# 	$(MAKE) -C $(OBJDUMP_DIR) tests_run
+tests_run:
+	$(MAKE) -C $(NM_DIR) tests_run
+	$(MAKE) -C $(OBJDUMP_DIR) tests_run
 
-.PHONY:		make nm objdump clean fclean all re
+.PHONY:		make nm objdump clean fclean all re tests_run
